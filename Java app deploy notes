@@ -1,0 +1,31 @@
+create file --> /etc/systemd/system/java-app.service
+
+-------------------------------------------
+[Unit]
+Description=Demo Java Spring Boot
+After=syslog.target
+
+[Service]
+User=root
+ExecStart=/usr/bin/java -jar
+SuccessExitStatus=143
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+-------------------------------------------
+
+To reload the systemd daemon --> systemctl daemon-reload
+status --> systemctl status java-app.service
+start --> systemctl start java-app.service
+restart --> systemctl restart java-app.service
+
+
+
+
+*) Do binding with creds
+*) Deploy steps to EC2
+
+rsync -avzP -e "ssh -o StrictHostKeyChecking=no -i $SSHKEY" target/news-v1.0.4.jar $USER@<EC2, or server IP>:/home/deploy/java-app/
+ssh -o StrictHostKeyChecking=no -i $SSHKEY $USER@<EC2 or server ip> sudo /usr/bin/systemctl restart java-app.service

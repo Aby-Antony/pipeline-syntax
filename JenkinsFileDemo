@@ -1,0 +1,17 @@
+pipeline {
+    agent any #where we can run like master or slave
+
+    stages {
+        stage('SCM') {
+            steps {
+                echo "Fake SCM"
+            }
+        }
+        stage('Test'){
+            steps {
+                echo "Fake Test"
+            }
+        }
+
+    }
+}
